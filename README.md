@@ -1,10 +1,10 @@
 # ⚡ WIFI HACKER ⚡
-**Developed by: Saad**
+**Developed by: Hecker**
 
 A professional-grade wireless security auditing tool with a synchronized hardware-check engine and high-contrast hacker aesthetic.
 
 ## 🚀 Features
-- **Deep Sync Technology**: Saad's custom logic to prevent skipping the correct password.
+- **Deep Sync Technology**: Hecker's custom logic to prevent skipping the correct password.
 - **Colorama Effects**: High-contrast, multi-color terminal interface.
 - **Typewriter Warning**: Dramatic character-by-character success messages.
 - **Auto-Logging**: Cracked keys are saved to `cracked_passwords.txt`.
@@ -26,5 +26,6 @@ python wifi.py
 ** This project is created only for educational purposes.
 
 Do NOT use this tool on networks that you do not own or do not have permission to test.
+
 
 The author is not responsible for any misuse of this project**
