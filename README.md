@@ -22,7 +22,7 @@ To install all dependencies, run:
 CHECK README.md FOR MORE INFORMATION
 ## USAGE
 `python wifi.py `
-
+YOU can use the provided wordlist wich is from wifite's probale.txt
 ## DISCLAIMER 
 ** This project is created only for educational/ethical purposes.
 Do NOT use this tool on networks that you do not own or do not have permission to test.
