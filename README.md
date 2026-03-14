@@ -19,7 +19,7 @@ move to folder and open cmd in that directory
 
 To install all dependencies, run:
 `python -m pip install -r requirements.txt `
-
+CHECK README.md FOR MORE INFORMATION
 ## USAGE
 `python wifi.py `
 
