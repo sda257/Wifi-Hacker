@@ -108,7 +108,7 @@ def main():
         print(f"\n\n{Fore.RED}[!] Scan complete. No matches found.")
 
     except KeyboardInterrupt:
-        print(f"\n\n{Fore.RED}{Style.BRIGHT}Caugh I'm out!{Style.RESET_ALL}")
+        print(f"\n\n{Fore.RED}{Style.BRIGHT}It's not me!{Style.RESET_ALL}")
         sys.exit()
 
 if __name__ == "__main__":
