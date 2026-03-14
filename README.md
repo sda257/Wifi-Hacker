@@ -27,3 +27,5 @@ To install all dependencies, run:
 ** This project is created only for educational/ethical purposes.
 Do NOT use this tool on networks that you do not own or do not have permission to test.
 The author is not responsible for any misuse of this project **
+## NOTE 
+Be sure to be at the nearest point to the router beacuse signal strenght matters
