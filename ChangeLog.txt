@@ -18,3 +18,4 @@ Compromise Warning: After a successful crack, the tool now displays a full-seque
 Auto-Logging: All successful cracks are timestamped and saved to cracked_passwords.txt automatically.
 🛑 Safe Exit
 Stealth Close: Updated the KeyboardInterrupt message to "It's not me!" for a cleaner, themed exit when hitting Ctrl+C
+Added auto scanning no need to enter essid manually
