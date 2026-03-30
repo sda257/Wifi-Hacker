@@ -1,3 +1,0 @@
-pywifi
-comtypes
-colorama
