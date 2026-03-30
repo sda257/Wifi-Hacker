@@ -1,12 +1,18 @@
+🛠️ System Hijacker v4.0 - THE STANDALONE UPDATE
+New Architecture: Zero-Install Deployment
+Python Independence: Converted the entire framework into a standalone .exe using PyInstaller. Users no longer need to install Python, Pip, or any external libraries.
+Self-Contained Environment: Bundled pywifi, comtypes, and colorama directly into the binary.
+Static Asset Integration: Integrated a custom "Hacker" icon directly into the executable resource header.
+Persistent Runtime: Added a "Safe Pause" logic at the end of the script to prevent the terminal window from auto-closing after a successful crack or exhaustion.
 🛠️ System Hijacker v3.0 Changelog
 🔒 WPA2/WPA3 Mandatory Skip Logic
 Auto-Filter: Added a real-time length check to skip any passwords under 8 digits.
 Efficiency: The script now uses a continue statement to jump to the next key without calling the test_wifi function, preventing wasted time on invalid handshake attempts.
 🛰️ Real-Time Protocol Detection
-Auto-Scan: Integrated a get_protocol_details function that scans the target SSID before starting the injection.
+Auto-Scan: Integrated a get_protocol_details function that scans the target SSID before starting the injection. No more manual ESSID entry.
 Dynamic AKM Mapping: The tool now identifies if the target is WPA, WPA2-PSK, or WPA3 (SAE) and applies the correct authentication key management (AKM) type automatically.
 📊 UI & Visual Overhaul
-Typewriter Effect: Applied the slow-typing "hacker" visual to all critical status lines, success messages, and system warnings for a dramatic effect.
+Typewriter Effect: Applied a slow-typing "hacker" visual to all critical status lines, success messages, and system warnings for a dramatic effect.
 Counter Fix: Implemented a "Clean Counter" using carriage returns (\r) and trailing space padding. This prevents numbers from overlapping when skipping short passwords.
 🔊 Audio Feedback System
 Success Alert: Integrated a Windows Beep (winsound) that triggers the moment a password is found. Added a universal terminal bell (\a) fallback for non-Windows systems.
@@ -17,5 +23,5 @@ Priority PINs: Added support for identifying and testing common Realtek-specific
 Compromise Warning: After a successful crack, the tool now displays a full-sequence typewriter warning: "password compromised !!!" and "Re-treat immediately".
 Auto-Logging: All successful cracks are timestamped and saved to cracked_passwords.txt automatically.
 🛑 Safe Exit
-Stealth Close: Updated the KeyboardInterrupt message to "It's not me!" for a cleaner, themed exit when hitting Ctrl+C
-Added auto scanning no need to enter essid manually
+Stealth Close: Updated the KeyboardInterrupt message to "Operation Aborted." for a cleaner, themed exit when hitting Ctrl+C.
+Auto Scanning: Fully automated the discovery process—simply select the ID of the target network from the live list.
