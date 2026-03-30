@@ -21,7 +21,7 @@ SDK Identification: Tuned the scanning logic to recognize generic Realtek AP-Rou
 Priority PINs: Added support for identifying and testing common Realtek-specific default PINs (e.g., 12345670, 77752499, 56730298).
 ☣️ Success Sequence Update
 Compromise Warning: After a successful crack, the tool now displays a full-sequence typewriter warning: "password compromised !!!" and "Re-treat immediately".
-Auto-Logging: All successful cracks are timestamped and saved to cracked_passwords.txt automatically.
+Auto-Logging & connecting: All successful cracks are timestamped and saved to cracked_passwords.txt & network is connected automatically.
 🛑 Safe Exit
 Stealth Close: Updated the KeyboardInterrupt message to "Operation Aborted." for a cleaner, themed exit when hitting Ctrl+C.
 Auto Scanning: Fully automated the discovery process—simply select the ID of the target network from the live list.
